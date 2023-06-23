@@ -24,9 +24,15 @@ class DatahubClient
     }
 
     public function getDatahubData() {
-        $response = $this->client()->get('core/nasdaq-listings/nasdaq-listed_json/data/a5bc7580d6176d60ac0b2142ca8d7df6/nasdaq-listed_json.json');
+        try {
+            $response = $this->client()->get('core/nasdaq-listings/nasdaq-listed_json/data/a5bc7580d6176d60ac0b2142ca8d7df6/nasdaq-listed_json.json');
 
-        return json_decode($response->getBody());
+            return json_decode($response->getBody());
+        } catch (ClientException $e) {
+            throw new \Exception($e->getMessage(), 400);
+        } catch (ServerException $e) {
+            throw new \Exception($e->getMessage(), 500);
+        }
     }
 
     protected function client()

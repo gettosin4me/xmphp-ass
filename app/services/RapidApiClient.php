@@ -28,13 +28,19 @@ class RapidApiClient
     }
 
     public function getRapidApiData($symbol) {
-        $response = $this->client()->get('get-historical-data', [
-            'query' => [
-                'symbol' => $symbol,
-            ]
-        ]);
+        try {
+            $response = $this->client()->get('get-historical-data', [
+                'query' => [
+                    'symbol' => $symbol,
+                ]
+            ]);
 
-        return json_decode($response->getBody());
+            return json_decode($response->getBody());
+        } catch (ClientException $e) {
+            throw new \Exception($e->getMessage(), 400);
+        } catch (ServerException $e) {
+            throw new \Exception($e->getMessage(), 500);
+        }
     }
 
     protected function client()
