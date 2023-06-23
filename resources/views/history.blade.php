@@ -61,18 +61,24 @@
     </div>
 </div>    
 <script>
+    const graph = {!! json_encode($graph, JSON_HEX_TAG) !!};
 const ctx = document.getElementById('historyChart');
   new Chart(ctx, {
     type: 'line',
     data: {
-        labels: ['January', 'February', 'March', 'April', 'May', 'June', 'December'],
-        datasets: [{
-            label: 'Open and Close Chart',
-            data: [65, 59, 80, 81, 56, 55, 40],
-            fill: false,
-            borderColor: 'rgb(75, 192, 192)',
-            tension: 0.1
-        }]
+        labels: graph.date,
+        datasets: [
+            {
+                label: 'Open Price',
+                data: graph.openData,
+                borderColor: '#0000ff',
+            },
+            {
+                label: 'Close Price',
+                data: graph.closedData,
+                borderColor: '#ff0000',
+            }
+        ]
     }
   });
 </script>

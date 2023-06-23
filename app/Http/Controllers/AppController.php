@@ -54,10 +54,18 @@ class AppController extends Controller
 
         $prices = [];
 
+        $graph = [
+            'openData' => [],
+            'closedData' => [],
+            'date' => [],
+        ];
         foreach ($data->prices as $record) {
             if(isset($record->date)) {
                 if (Carbon::parse($request->startDate)->lte(Carbon::parse($record->date))) {
                     if (Carbon::parse($request->endDate)->gte(Carbon::parse($record->date))) {
+                        array_push($graph['openData'], $record->open);
+                        array_push($graph['closedData'], $record->close);
+                        array_push($graph['date'], Carbon::parse($record->date)->format('Y-m-d'));
                         array_push($prices, $record);
                     }
                 }
@@ -73,9 +81,10 @@ class AppController extends Controller
         //     ]));
         
         return view('history', [
-            'data' => $data,
-            'prices' => $prices,
-            'companyName' => $request->companyName,
+            'data'          => $data,
+            'prices'        => $prices,
+            'companyName'   => $request->companyName,
+            'graph'         => $graph
         ]);
     }
 }

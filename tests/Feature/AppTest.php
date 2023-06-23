@@ -31,7 +31,7 @@ class AppTest extends TestCase
         $email = 'hey@akomolafetosin.com';
         $symbol = 'GOOG';
         $startDate = '2023-06-01';
-        $endDate = '2023-06-30';
+        $endDate = '2023-06-23';
         $companyName = 'Google';
 
         $response = $this->call('POST', '/', [

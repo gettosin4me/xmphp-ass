@@ -25,8 +25,8 @@ class AppRequest extends FormRequest
     {
         return [
             'companySymbol' => ['required'],
-            'startDate'     => ['required',  'date', 'after_or_equal: endDate'],
-            'endDate'       => ['required',  'date', 'before_or_equal: today', 'after_or_equal: startDate'],
+            'startDate'     => ['required',  'date', 'before_or_equal:endDate'],
+            'endDate'       => ['required',  'date', 'after_or_equal:startDate', 'before_or_equal:today'],
             'email'         => ['required', 'email'],
         ];
     }
