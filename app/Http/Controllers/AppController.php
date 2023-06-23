@@ -72,13 +72,17 @@ class AppController extends Controller
             }
         }
 
-        // Mail::mailer('mailgun')
-        //     ->to($request->email)
-        //     ->send(new AppMail([
-        //         'startDate' => $request->startDate,
-        //         'endDate' => $request->endDate,
-        //         'companyName' => $request->companyName,
-        //     ]));
+        Mail::mailer('mailgun')
+            ->to($request->email)
+            ->send(new AppMail([
+                'startDate'     => $request->startDate,
+                'endDate'       => $request->endDate,
+                'companyName'   => $request->companyName,
+                'data'          => $data,
+                'prices'        => $prices,
+                'companyName'   => $request->companyName,
+                'graph'         => $graph
+            ]));
         
         return view('history', [
             'data'          => $data,
